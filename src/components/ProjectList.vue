@@ -1,7 +1,11 @@
 <script>
 import axios from "axios";
+import ProjectCard from "./ProjectCard.vue";
 
 export default {
+  components: {
+    ProjectCard,
+  },
   data() {
     return {
       arrProjects: [],
@@ -28,25 +32,21 @@ export default {
     },
   },
   created() {
-    axios
-      .get("http://127.0.0.1:8000/api/projects", {
-        params: {
-          page: this.currentPage,
-        },
-      })
-      .then((response) => {
-        this.arrProjects = response.data.data;
-        this.nPages = response.data.last_page;
-      });
+    this.getProjects();
   },
 };
 </script>
 
 <template>
-  <h2>Questi sono i nostri progetti</h2>
-  <ul>
-    <li v-for="project in arrProjects" :key="project.id">{{ project.name }}</li>
-  </ul>
+  <h2>Questi sono i miei progetti</h2>
+
+  <div class="container-card">
+    <ProjectCard
+      v-for="project in arrProjects"
+      :key="project.id"
+      :project="project"
+    />
+  </div>
 
   <nav>
     <ul class="pagination">
@@ -72,4 +72,8 @@ export default {
   </nav>
 </template>
 
-<style></style>
+<style>
+.container-card {
+  display: flex;
+}
+</style>
