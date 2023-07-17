@@ -1,6 +1,7 @@
 <script>
 import axios from "axios";
 import ProjectCard from "./ProjectCard.vue";
+import { store } from "../store";
 
 export default {
   components: {
@@ -11,16 +12,19 @@ export default {
       arrProjects: [],
       currentPage: 1,
       nPages: 0,
+      store,
     };
   },
   methods: {
-    changePage(page) {
-      this.currentPage = page;
-      this.getProjects();
+    toPrevPage() {
+      this.currentPage != 1 ? this.currentPage-- : null;
+    },
+    toNextPage() {
+      this.currentPage != this.nPages ? this.currentPage++ : null;
     },
     getProjects() {
       axios
-        .get("http://127.0.0.1:8000/api/projects", {
+        .get("http://localhost:8000/api/projects", {
           params: {
             page: this.currentPage,
           },
@@ -34,24 +38,27 @@ export default {
   created() {
     this.getProjects();
   },
+  watch: {
+    currentPage() {
+      this.getProjects();
+    },
+  },
 };
 </script>
 
 <template>
   <h2>Questi sono i miei progetti</h2>
 
-  <div class="container-card">
-    <ProjectCard
-      v-for="project in arrProjects"
-      :key="project.id"
-      :project="project"
-    />
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 mb-5">
+    <div class="col" v-for="project in arrProjects" :key="project.id">
+      <ProjectCard :project="project" />
+    </div>
   </div>
 
   <nav>
     <ul class="pagination">
-      <li class="page-item disabled">
-        <a class="page-link">Previous</a>
+      <li class="page-item" :class="{ disabled: currentPage == 1 }">
+        <a class="page-link" href="#" @click="toPrevPage">Previous</a>
       </li>
 
       <li
@@ -60,13 +67,13 @@ export default {
         class="page-item"
         :class="{ active: page == currentPage }"
       >
-        <span class="page-link" @click="changePage(page)">
+        <a class="page-link" href="#" @click="currentPage = page">
           {{ page }}
-        </span>
+        </a>
       </li>
 
-      <li class="page-item">
-        <a class="page-link" href="#">Next</a>
+      <li class="page-item" :class="{ disabled: currentPage == nPages }">
+        <a class="page-link" href="#" @click="toNextPage">Next</a>
       </li>
     </ul>
   </nav>
@@ -75,5 +82,6 @@ export default {
 <style>
 .container-card {
   display: flex;
+  flex-wrap: wrap;
 }
 </style>
