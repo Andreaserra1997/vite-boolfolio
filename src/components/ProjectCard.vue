@@ -16,8 +16,8 @@ export default {
   methods: {
     getImageUrl(image) {
       return image
-        ? this.baseUrl + "storage/" + image
-        : this.baseUrl + "storage/default.jpg";
+        ? this.store.baseUrl + "storage/uploads/" + image
+        : this.store.baseUrl + "storage/uploads/default.jpg";
     },
   },
 };
@@ -35,7 +35,11 @@ export default {
         <li class="list-group-item">Categoria: {{ project.type.name }}</li>
         <li class="list-group-item">Data: {{ project.date }}</li>
       </ul>
-      <a href="#" class="btn btn-primary mt-auto">View</a>
+      <router-link
+        :to="{ name: 'projects.show', params: { slug: project.slug } }"
+        class="btn btn-primary mt-auto"
+        >View</router-link
+      >
     </div>
   </div>
 </template>

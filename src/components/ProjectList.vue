@@ -24,7 +24,7 @@ export default {
     },
     getProjects() {
       axios
-        .get("http://localhost:8000/api/projects", {
+        .get(this.store.baseUrl + "api/projects", {
           params: {
             page: this.currentPage,
           },
