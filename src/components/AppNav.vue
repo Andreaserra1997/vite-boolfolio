@@ -1,5 +1,14 @@
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      searchString: "",
+    };
+  },
+  // update() {
+  //   this.searchString = new URLSearchParams(window.location.search).get("q");
+  // },
+};
 </script>
 
 <template>
@@ -29,13 +38,28 @@ export default {};
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link active" href="#">About</a>
+            <router-link class="nav-link active" :to="{ name: 'about' }"
+              >About</router-link
+            >
           </li>
         </ul>
-        <!-- <form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">Search</button>
-				</form> -->
+        <form
+          class="d-flex"
+          role="search"
+          @submit.prevent="
+            $router.push({ name: 'projects', query: { q: searchString } })
+          "
+        >
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            name="q"
+            v-model="searchString"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
       </div>
     </div>
   </nav>

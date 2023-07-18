@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 
 import AppHome from "./pages/AppHome.vue";
+import AppAbout from "./pages/AppAbout.vue";
 import AppProjects from "./pages/AppProjects.vue";
 import ProjectsShow from "./pages/ProjectsShow.vue";
+import App404 from "./pages/App404.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -13,6 +15,11 @@ const router = createRouter({
       component: AppHome,
     },
     {
+      path: "/about",
+      name: "about",
+      component: AppAbout,
+    },
+    {
       path: "/projects",
       name: "projects",
       component: AppProjects,
@@ -21,6 +28,11 @@ const router = createRouter({
       path: "/projects/:slug",
       name: "projects.show",
       component: ProjectsShow,
+    },
+    {
+      path: "/:pathMatch(.*)*",
+      name: "page404",
+      component: App404,
     },
   ],
 });
