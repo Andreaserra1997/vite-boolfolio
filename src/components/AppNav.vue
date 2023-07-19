@@ -42,6 +42,11 @@ export default {
               >About</router-link
             >
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link active" :to="{ name: 'contact' }"
+              >Contact</router-link
+            >
+          </li>
         </ul>
         <form
           class="d-flex"

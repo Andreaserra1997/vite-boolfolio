@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 
 import AppHome from "./pages/AppHome.vue";
 import AppAbout from "./pages/AppAbout.vue";
+import AppContact from "./pages/AppContact.vue";
 import AppProjects from "./pages/AppProjects.vue";
 import ProjectsShow from "./pages/ProjectsShow.vue";
 import App404 from "./pages/App404.vue";
@@ -18,6 +19,11 @@ const router = createRouter({
       path: "/about",
       name: "about",
       component: AppAbout,
+    },
+    {
+      path: "/contact",
+      name: "contact",
+      component: AppContact,
     },
     {
       path: "/projects",
