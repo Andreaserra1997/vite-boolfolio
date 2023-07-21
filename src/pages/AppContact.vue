@@ -39,7 +39,7 @@ export default {
     resetForm() {
       this.name = "";
       this.email = "";
-      this.meaage = "";
+      this.message = "";
       this.newsletter = "";
     },
   },
